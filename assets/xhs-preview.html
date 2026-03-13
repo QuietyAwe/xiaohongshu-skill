@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>百年法案的黄昏</title>
+    <link
+      href="https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-gradient-1: #ffffff;
+        --bg-gradient-2: #f9f8f4;
+        --bg-gradient-3: #f0ede1;
+        --card-bg: #f9f8f4;
+        --text-primary: #1a1a1a;
+        --text-secondary: #3d3d3d;
+        --text-muted: #6b6b6b;
+        --accent-color: #c9375c;
+        --blockquote-border: #c9c4bc;
+        --blockquote-text: #5a5a5a;
+        --blockquote-bg: #f5f3ef;
+        --divider: #d8d4cc;
+        --highlight-bg: #fff3cd;
+        --highlight-text: #8b6914;
+      }
+
+      [data-theme="dark"] {
+        --bg-gradient-1: #1c1811;
+        --bg-gradient-2: #0b0907;
+        --bg-gradient-3: #050403;
+        --card-bg: #070605;
+        --text-primary: #e8e6e3;
+        --text-secondary: #c9c6c1;
+        --text-muted: #8a8783;
+        --accent-color: #ffd700;
+        --blockquote-border: #555555;
+        --blockquote-text: #b0b0b0;
+        --blockquote-bg: #1a1a1a;
+        --divider: #3a3835;
+        --highlight-bg: #333333;
+        --highlight-text: #d0d0d0;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: linear-gradient(
+          135deg,
+          var(--bg-gradient-1) 0%,
+          var(--bg-gradient-2) 50%,
+          var(--bg-gradient-3) 100%
+        );
+        background-attachment: fixed;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        font-family: "Noto Serif SC", serif;
+      }
+
+      .container {
+        width: 600px;
+        background-color: var(--card-bg);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      }
+      .content {
+        padding: 80px 55px;
+      }
+
+      h1 {
+        font-size: 42px;
+        font-weight: 700;
+        color: var(--text-primary);
+        line-height: 1.4;
+        margin-bottom: 30px;
+      }
+      h2 {
+        font-size: 32px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin: 40px 0 20px;
+      }
+      p {
+        font-size: 26px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        line-height: 1.8;
+        margin-bottom: 20px;
+        text-align: justify;
+      }
+      strong {
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+      hr {
+        border: none;
+        border-top: 1px solid var(--divider);
+        margin: 35px 0;
+        opacity: 0.6;
+      }
+
+      /* 1. 红色数据框：放硬事实 */
+      .data-box {
+        background: var(--blockquote-bg);
+        border-radius: 8px;
+        padding: 24px;
+        margin: 30px 0;
+        border-left: 6px solid var(--accent-color);
+      }
+      .data-box strong {
+        color: var(--accent-color);
+        font-size: 28px;
+        display: block;
+        margin-bottom: 8px;
+      }
+      .data-box p {
+        margin-bottom: 0;
+        font-size: 24px;
+        line-height: 1.6;
+      }
+
+      /* 2. 灰色引用框：放证言/语录 */
+      blockquote {
+        border-left: 4px solid var(--blockquote-border);
+        margin: 28px 0;
+        padding: 20px 24px;
+        background-color: var(--blockquote-bg);
+        border-radius: 0 10px 10px 0;
+      }
+      blockquote p {
+        font-size: 24px;
+        color: var(--blockquote-text);
+        font-style: normal;
+        margin-bottom: 0;
+      }
+
+      /* 3. 金句框 */
+      .insight {
+        background: linear-gradient(
+          135deg,
+          var(--highlight-bg) 0%,
+          transparent 100%
+        );
+        padding: 20px;
+        border-radius: 12px;
+        margin: 30px 0;
+      }
+      .insight p {
+        margin-bottom: 0;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .guide-tag {
+        margin-top: 40px;
+        width: 600px;
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+      details summary {
+        cursor: pointer;
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+      .guide-content {
+        background: rgba(0, 0, 0, 0.05);
+        padding: 15px;
+        border-radius: 5px;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="content">
+        <h1>百年法案的黄昏</h1>
+
+        <p>1920年，美国参议员韦斯利·琼斯在国会慷慨陈词：</p>
+
+        <blockquote>
+          <p>
+            "这部法律将为美国造船业打下坚实基础，让我们在与世界的竞争中立于不败之地。"
+          </p>
+        </blockquote>
+
+        <p>105年后，他的"遗产"被亲手拆掉。</p>
+
+        <p>
+          2026年3月12日，特朗普政府宣布拟暂停执行《琼斯法案》——允许外国油轮在美国港口间运送能源，以平抑飙升的油价。
+        </p>
+
+        <p>一个保护主义法案，最终被它"保护"的产业亲手埋葬。</p>
+
+        <hr />
+
+        <h2>一部"杀死"它想保护的法律</h2>
+
+        <p>《琼斯法案》的核心规定很简单：</p>
+
+        <p>
+          美国港口之间的运输，必须用美国建造的船、美国船东拥有、美国船员操作。
+        </p>
+
+        <p>听起来很爱国对吧？</p>
+
+        <div class="data-box">
+          <strong>17% → 0.4%</strong>
+          <p>
+            1960年，美国商船队占全球运力的17%；今天，这个数字是0.4%。105年的"保护"，换来的是从世界第二跌到几乎消失。
+          </p>
+        </div>
+
+        <p>为什么？</p>
+
+        <p>因为保护主义从不让产业变强，它只让产业变懒。</p>
+
+        <hr />
+
+        <h2>一艘船的价格差：4倍</h2>
+
+        <p>美国造船成本是外国的4-5倍。</p>
+
+        <p>不是技术落后，而是没有竞争压力。</p>
+
+        <p>
+          《琼斯法案》给了美国造船厂一个"铁饭碗"——国内航线只能买我的船，不管多贵你都得买。
+        </p>
+
+        <p>结果？</p>
+
+        <p>
+          美国船厂不思进取，外国船厂拼命降本。到今天，美国造一艘油轮的钱，够在韩国或中国造四艘。
+        </p>
+
+        <p>波多黎各人对此深有体会。</p>
+
+        <p>
+          这个加勒比海岛屿的汽油价格常年比美国本土高30%-50%，因为从休斯顿运油到波多黎各，必须用美国船——而美国船太少了，运费贵得离谱。
+        </p>
+
+        <p>
+          2017年飓风玛丽亚袭击波多黎各，全岛断电。特朗普当时也签了临时豁免令，允许外国油轮运油。
+        </p>
+
+        <p>但豁免只持续了10天。</p>
+
+        <hr />
+
+        <h2>保护的悖论</h2>
+
+        <p>经济学有个词叫"保护的悖论"。</p>
+
+        <p>你越是保护一个产业，它就越没有竞争力。</p>
+
+        <blockquote>
+          <p>
+            "《琼斯法案》非但没有促成相关行业的繁荣，反而让美国造船业在全球竞争中彻底溃败。"<br />——
+            安妮·克鲁格，Project Syndicate
+          </p>
+        </blockquote>
+
+        <p>讽刺的是，美国海军的舰艇，很多核心部件也是从外国买的。</p>
+
+        <p>因为美国本土的造船厂，已经造不出足够便宜的民船来分摊成本了。</p>
+
+        <div class="insight">
+          <p>保护主义的终极形态，就是"保护"出一个必须靠救济才能活着的产业。</p>
+        </div>
+
+        <hr />
+
+        <h2>一百年后，谁还记得初衷？</h2>
+
+        <div class="data-box">
+          <strong>每加仑省10美分</strong>
+          <p>
+            摩根大通估算，豁免《琼斯法案》能让东海岸车主每加仑省10美分。10美分听起来不多，但这是政府承认了一个事实："我们造的船，太贵了。"
+          </p>
+        </div>
+
+        <p>100多年前，参议员琼斯说这部法律"将让美国在竞争中立于不败之地"。</p>
+
+        <p>100多年后，他的继任者们不得不承认：</p>
+
+        <p>"我们竞争不过，所以先暂停一下。"</p>
+
+        <hr />
+
+        <h2>历史的回响</h2>
+
+        <p>
+          《琼斯法案》的故事，让我想起另一个美国法律——1930年的《斯姆特-霍利关税法》。
+        </p>
+
+        <p>那部法律把两万多种商品的关税提到历史最高，本意是"保护美国工人"。</p>
+
+        <p>结果呢？</p>
+
+        <p>全球贸易战爆发，美国出口暴跌60%，大萧条雪上加霜。</p>
+
+        <div class="insight">
+          <p>
+            当你试图用一堵墙挡住外面的风，风不会消失，它只会绕过墙，从另一个方向吹回来。
+          </p>
+        </div>
+
+        <hr />
+
+        <h2>尾声</h2>
+
+        <p>《琼斯法案》不会因为这次豁免就彻底废除。</p>
+
+        <p>
+          它背后有强大的利益集团：造船工会、沿海航运公司、还有那些靠"美国船优先"吃饭的政客。
+        </p>
+
+        <p>但至少，这一次，美国政府承认了一个事实：</p>
+
+        <p>
+          保护主义救不了产业，它只能延缓产业的死亡。而延缓的代价，是让整个国家为低效买单。
+        </p>
+
+        <p>参议员琼斯如果在天有灵，不知道会作何感想。</p>
+
+        <p>他亲手种下的树，105年后，结出的果子是"暂停执行"。</p>
+
+        <div class="insight">
+          <p>历史从不嘲笑失败者，它只嘲笑那些拒绝承认失败的人。</p>
+        </div>
+
+        <hr />
+
+        <p><strong>参考来源：</strong></p>
+        <p style="font-size: 20px; color: var(--text-muted); line-height: 1.5">
+          · 新浪财经《特朗普政府拟暂停执行百年琼斯法》(2026.3.12)<br />
+          · Project
+          Syndicate《保护主义如何击沉美国航运业》安妮·克鲁格(2026.3)<br />
+          · 百度百科《琼斯法案》
+        </p>
+      </div>
+    </div>
+
+    <div class="guide-tag">
+      <details>
+        <summary>内容编辑指南</summary>
+        <div class="guide-content">
+          1.
+          <strong>红色框 (.data-box)</strong>：放核心数据、时间、坐标。<br />
+          2.
+          <strong>灰色框 (blockquote)</strong>：放人物语录、官方声明原文。<br />
+          3.
+          <strong>金句框 (.insight)</strong>：放点睛之笔，放在文章高潮或结尾。
+        </div>
+      </details>
+    </div>
+  </body>
+</html>

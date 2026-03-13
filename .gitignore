@@ -1,0 +1,20 @@
+# Sensitive files
+.env
+cookies.txt
+*.cookie
+
+# Dependencies
+.venv/
+node_modules/
+
+# Generated files
+__pycache__/
+*.pyc
+*.pyo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
