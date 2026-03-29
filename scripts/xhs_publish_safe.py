@@ -38,8 +38,8 @@ except ImportError as e:
 
 
 # 配置
-PUBLISH_RECORD_FILE = Path("/home/qee/.picoclaw/workspace/小红书笔记/已发布记录.txt")
-NOTES_DIR = Path("/home/qee/.picoclaw/workspace/小红书笔记")
+PUBLISH_RECORD_FILE = Path("/root/.picoclaw/workspace/小红书笔记/已发布记录.txt")
+NOTES_DIR = Path("/root/.picoclaw/workspace/小红书笔记")
 
 
 def ensure_record_file():
@@ -108,7 +108,7 @@ def extract_title_from_md(md_path: str) -> Optional[str]:
 
 
 def extract_desc_from_md(md_path: str) -> str:
-    """从 Markdown 文件提取正文（去掉标题和标签行）"""
+    """从 Markdown 文件提取正文（去掉标题、标签行和 markdown 语法）"""
     with open(md_path, 'r', encoding='utf-8') as f:
         content = f.read()
     
@@ -133,7 +133,54 @@ def extract_desc_from_md(md_path: str) -> str:
             break
     
     desc = '\n'.join(lines[start_idx:end_idx])
+    
+    # 去掉 markdown 语法
+    desc = strip_markdown(desc)
+    
     return desc.strip()
+
+
+def strip_markdown(text: str) -> str:
+    """去掉 markdown 语法，保留纯文本"""
+    # 去掉标题标记 # ## ### 等
+    text = re.sub(r'^#{1,6}\s+', '', text, flags=re.MULTILINE)
+    
+    # 去掉加粗 **text** 或 __text__
+    text = re.sub(r'\*\*(.+?)\*\*', r'\1', text)
+    text = re.sub(r'__(.+?)__', r'\1', text)
+    
+    # 去掉斜体 *text* 或 _text_
+    text = re.sub(r'\*(.+?)\*', r'\1', text)
+    text = re.sub(r'_(.+?)_', r'\1', text)
+    
+    # 去掉行内代码 `code`
+    text = re.sub(r'`(.+?)`', r'\1', text)
+    
+    # 去掉链接 [text](url)，保留 text
+    text = re.sub(r'\[(.+?)\]\(.+?\)', r'\1', text)
+    
+    # 去掉图片 ![alt](url)
+    text = re.sub(r'!\[.*?\]\(.+?\)', '', text)
+    
+    # 去掉引用标记 >
+    text = re.sub(r'^>\s*', '', text, flags=re.MULTILINE)
+    
+    # 去掉无序列表标记 - * +
+    text = re.sub(r'^[\-\*\+]\s+', '', text, flags=re.MULTILINE)
+    
+    # 去掉有序列表标记 1. 2. 等
+    text = re.sub(r'^\d+\.\s+', '', text, flags=re.MULTILINE)
+    
+    # 去掉分隔线 --- *** ___
+    text = re.sub(r'^[\-\*]{3,}$', '', text, flags=re.MULTILINE)
+    
+    # 去掉 HTML 标签
+    text = re.sub(r'<[^>]+>', '', text)
+    
+    # 合并多个连续空行为单个空行
+    text = re.sub(r'\n{3,}', '\n\n', text)
+    
+    return text
 
 
 def extract_tags_from_md(md_path: str) -> List[str]:
@@ -159,11 +206,14 @@ def find_images_for_md(md_path: str) -> List[str]:
     md_dir = Path(md_path).parent
     images = []
     
-    # 优先顺序：cover -> xhs-light -> xhs-dark -> 其他 png
+    # 优先顺序：cover.png -> cover-light.png -> cover-dark.png -> xhs-light -> xhs-dark -> 其他 png
+    cover = md_dir / "cover.png"
     cover_light = md_dir / "cover-light.png"
     cover_dark = md_dir / "cover-dark.png"
     
-    if cover_light.exists():
+    if cover.exists():
+        images.append(str(cover))
+    elif cover_light.exists():
         images.append(str(cover_light))
     elif cover_dark.exists():
         images.append(str(cover_dark))
@@ -315,11 +365,14 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog='''
 示例:
-  # 从 Markdown 文件发布（自动提取标题、查找图片，正文留空）
+  # 从 Markdown 文件发布（自动提取标题、正文、查找图片，正文会自动去掉 markdown 语法）
   python xhs_publish_safe.py --md /path/to/note.md --topics "游戏" "二次元"
   
-  # 手动指定标题和图片（正文留空）
-  python xhs_publish_safe.py --title "标题" --desc "" --images cover.png card1.png --topics "话题"
+  # 手动指定标题和图片
+  python xhs_publish_safe.py --title "标题" --images cover.png card1.png --topics "话题"
+  
+  # 正文留空（仅发布图片，不包含文字）
+  python xhs_publish_safe.py --md note.md --desc "" --topics "话题"
   
   # 强制重新发布（忽略重复检查）
   python xhs_publish_safe.py --md note.md --topics "话题" --force
@@ -328,8 +381,8 @@ def main():
   python xhs_publish_safe.py --md note.md --topics "话题" --dry-run
 
 注意:
-  --desc "" 表示正文留空（推荐）。小红书图文笔记的正文已做成图片，
-  发布时正文应留空，避免与图片内容重复。
+  默认会将 markdown 正文转为纯文本发布（去掉 # ** [] 等语法）。
+  如需正文留空，请使用 --desc ""。
 '''
     )
     

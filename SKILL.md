@@ -162,25 +162,30 @@ pip install xhs python-dotenv requests --break-system-packages
 ### 4. 发布命令
 
 ```bash
-cd /home/qee/.picoclaw/workspace/skills/xiaohongshu
+cd /root/.picoclaw/workspace/skills/xiaohongshu
 
-# 推荐方式：从 md 文件发布（自动提取标题、标签，正文留空）
-.venv/bin/python scripts/xhs_publish_safe.py --md /path/to/note.md --desc ""
+# 推荐方式：从 md 文件发布（自动提取标题、标签、正文）
+# 正文会自动从 markdown 提取并去掉语法标记（# ** [] 等）
+.venv/bin/python scripts/xhs_publish_safe.py --md /path/to/note.md --topics "话题1" "话题2"
 
 # 手动指定标签（覆盖 md 文件中的标签）
-.venv/bin/python scripts/xhs_publish_safe.py --md note.md --desc "" --topics "话题1" "话题2"
+.venv/bin/python scripts/xhs_publish_safe.py --md note.md --topics "话题1" "话题2"
+
+# 正文留空（仅发布图片，不包含文字）
+.venv/bin/python scripts/xhs_publish_safe.py --md note.md --desc "" --topics "话题1"
 
 # 强制重新发布（忽略重复检查）
-.venv/bin/python scripts/xhs_publish_safe.py --md note.md --desc "" --force
+.venv/bin/python scripts/xhs_publish_safe.py --md note.md --topics "话题" --force
 
 # 仅验证，不发布
-.venv/bin/python scripts/xhs_publish_safe.py --md note.md --desc "" --dry-run
+.venv/bin/python scripts/xhs_publish_safe.py --md note.md --topics "话题" --dry-run
 ```
 
 **安全脚本特性：**
 
 - ✅ 发布前检查本地记录，同名笔记已发布则拒绝
 - ✅ 自动从 md 文件底部提取标签（`标签：` 行）
+- ✅ 自动从 md 文件提取正文，去掉 markdown 语法
 - ✅ 发布命令只执行一次
 - ✅ 发布后立即记录笔记 ID
 - ✅ 等待后用 API 验证发布状态
@@ -211,15 +216,8 @@ cd /home/qee/.picoclaw/workspace/skills/xiaohongshu
 
 **发布注意事项：**
 
-- 图片中已包含完整正文内容，`-d` 参数的简介尽量简短（如一句话概括或引导语）或留空
+- 图片中已包含完整正文内容，但发布时仍会填充纯文本正文（方便搜索和阅读）
 - `--topics` 话题标签必须带，增加笔记曝光
-
-> ⚠️ **重要：正文为什么要留空**
-> 小红书图文笔记的正文内容已经做成图片了，发布时 `--desc` 参数应该传空字符串 `--desc ""`，**不要把 md 正文填进去**。正文留空可以：
->
-> - 避免图片和文字内容重复
-> - 让用户专注于图片内容
-> - 符合小红书图文笔记的常见发布方式
 
 ## 依赖
 

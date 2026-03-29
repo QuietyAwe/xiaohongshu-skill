@@ -4,12 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>高级质感封面模板</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&display=swap"
-      rel="stylesheet"
-    />
+    <!-- 使用本地安装的 Noto Serif CJK 字体，避免网络字体加载问题 -->
     <style>
       :root {
         --bg-base: #f9f8f4;
@@ -57,7 +52,7 @@
       }
 
       body {
-        font-family: "Noto Serif SC", serif;
+        font-family: "Noto Serif CJK SC", "Source Han Serif SC", "Source Han Serif CN", serif;
         background-color: var(--bg-base);
         background-image: var(--bg-gradient);
         width: 675px;
@@ -150,7 +145,7 @@
 
       .title {
         font-size: 90px !important;
-        font-weight: 900;
+        font-weight: 700;
         color: var(--title-color);
         line-height: 1.35 !important;
         letter-spacing: 0.02em;

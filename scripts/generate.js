@@ -52,6 +52,7 @@ async function generateImages(ratio = "9:16") {
   console.log("⏳ 正在启动浏览器...");
   const browser = await puppeteer.launch({
     headless: true,
+    executablePath: "/usr/bin/chromium",
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
   console.log("✅ 浏览器启动成功");
@@ -107,7 +108,7 @@ async function generateImages(ratio = "9:16") {
 
     const containerRect = container.getBoundingClientRect();
     const elements = container.querySelectorAll(
-      "h1, h2, h3, p, ul, ol, blockquote, table, .data-box, .insight, hr",
+      "h1, h2, h3, p, ul, ol, blockquote, table, .data-box, .insight, .quote, hr",
     );
 
     const items = [];
